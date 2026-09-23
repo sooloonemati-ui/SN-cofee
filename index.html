@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05060b">
+<title>SN Cafe | Taste the Dark Side</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#05060b;--panel:#0c101a;--panel2:#101625;--blue:#071d35;
+  --purple:#5d3bbf;--gold:#f2c94c;--white:#f5f3ee;--muted:#a9afbd;
+  --line:rgba(242,201,76,.75);--danger:#ff5470;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:radial-gradient(circle at 75% 10%,rgba(93,59,191,.18),transparent 28%),
+             linear-gradient(135deg,#020308 0%,#06182d 55%,#05060b 100%);
+  color:var(--white);font-family:Vazirmatn,sans-serif;min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92%);margin:auto}
+header{
+  position:sticky;top:0;z-index:50;background:rgba(3,5,10,.82);
+  backdrop-filter:blur(18px);border-bottom:1px solid rgba(242,201,76,.15)
+}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{
+  direction:ltr;font-family:"Baloo 2",cursive;font-size:38px;font-weight:800;
+  color:#fff;text-shadow:0 0 18px rgba(93,59,191,.8);letter-spacing:-5px
+}
+.logo span{color:var(--gold)}
+.navlinks{display:flex;gap:22px;color:#dfe3eb;font-size:14px}
+.navlinks a:hover{color:var(--gold)}
+.nav-actions{display:flex;gap:8px}
+.iconbtn,.goldbtn,.ghostbtn{
+  border:1px solid var(--line);border-radius:14px;padding:9px 14px;
+  background:rgba(242,201,76,.08);color:#fff
+}
+.goldbtn{background:var(--gold);color:#08090c;font-weight:800}
+.ghostbtn:hover,.iconbtn:hover{background:rgba(242,201,76,.18)}
+.hero{
+  min-height:520px;display:flex;align-items:center;position:relative;overflow:hidden;
+  border-radius:0 0 34px 34px;
+  background:
+   linear-gradient(90deg,rgba(2,3,7,.96) 0%,rgba(2,7,18,.62) 48%,rgba(5,9,22,.25) 100%),
+   radial-gradient(circle at 75% 50%,rgba(75,48,160,.35),transparent 32%),
+   linear-gradient(120deg,#020308,#0b2946);
+}
+.hero:after{content:"";position:absolute;inset:auto -10% -130px;height:240px;background:radial-gradient(ellipse,rgba(93,59,191,.25),transparent 65%)}
+.hero-content{position:relative;z-index:2;max-width:650px;padding:70px 0}
+.eyebrow{color:var(--gold);font-size:13px;letter-spacing:4px;text-transform:uppercase;direction:ltr}
+h1{font-family:"Baloo 2",cursive;direction:ltr;font-size:clamp(56px,11vw,105px);line-height:.85;margin:15px 0}
+h1 span{color:var(--gold)}
+.hero h2{font-size:clamp(21px,4vw,35px);margin-bottom:14px}
+.hero p{color:#c4c9d3;line-height:2;max-width:560px}
+.hero-buttons{display:flex;gap:10px;margin-top:25px;flex-wrap:wrap}
+.section{padding:72px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:28px;gap:20px}
+.section-head h2{font-size:30px}
+.section-head p{color:var(--muted);font-size:13px}
+.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:8px;margin-bottom:22px}
+.tab{white-space:nowrap;border:1px solid rgba(242,201,76,.3);background:#090d16;color:#e9ebef;padding:10px 16px;border-radius:999px}
+.tab.active{background:var(--gold);color:#111;border-color:var(--gold);font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{
+  background:linear-gradient(180deg,rgba(17,23,37,.95),rgba(8,11,18,.95));
+  border:1.5px solid var(--line);border-radius:24px;padding:20px;
+  box-shadow:0 14px 35px rgba(0,0,0,.2);transition:.25s
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(0,0,0,.4)}
+.card-top{display:flex;justify-content:space-between;gap:12px;direction:ltr}
+.emoji{font-size:36px}
+.price{color:var(--gold);font-weight:800;direction:rtl}
+.en{font-family:"Baloo 2",cursive;direction:ltr;font-size:24px;font-weight:800}
+.fa{font-weight:700;color:#fff;margin-top:1px}
+.desc{color:var(--muted);font-size:12px;line-height:1.8;margin:8px 0 16px}
+.add{width:100%;padding:10px;border-radius:13px;border:1px solid var(--gold);background:rgba(242,201,76,.1);color:#fff;font-weight:700}
+.add:hover{background:var(--gold);color:#111}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.aboutbox{padding:28px;border-radius:26px;border:1px solid rgba(242,201,76,.28);background:rgba(8,12,21,.72)}
+.aboutbox h3{margin-bottom:10px}.aboutbox p{color:#b9bfcb;line-height:2}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.info div{padding:18px;border-radius:20px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}
+.info small{display:block;color:var(--muted);margin-bottom:5px}
+.hookah{
+  position:relative;min-height:360px;overflow:hidden;border-radius:30px;
+  background:radial-gradient(circle at 70% 30%,rgba(93,59,191,.35),transparent 25%),linear-gradient(120deg,#05060b,#071c31);
+  border:1px solid rgba(242,201,76,.35);display:flex;align-items:center;padding:35px
+}
+.table{position:absolute;right:10%;bottom:-20px;width:55%;height:105px;border-radius:50%;background:linear-gradient(#242936,#08090c);box-shadow:0 -8px 25px #000}
+.hookah-art{position:absolute;right:27%;bottom:75px;font-size:115px;filter:drop-shadow(0 0 20px rgba(93,59,191,.7));z-index:2;transition:.3s}
+.hookah-art.active{transform:translateY(-5px) scale(1.03)}
+.smoke{position:absolute;right:39%;bottom:185px;width:90px;height:130px;z-index:3;pointer-events:none;opacity:0}
+.smoke.active{opacity:1}
+.smoke i{position:absolute;width:28px;height:70px;border-radius:50%;border:3px solid rgba(235,240,255,.42);filter:blur(2px);animation:smoke 3s infinite ease-in-out}
+.smoke i:nth-child(1){right:20px}.smoke i:nth-child(2){right:45px;animation-delay:.7s}.smoke i:nth-child(3){right:2px;animation-delay:1.3s}
+@keyframes smoke{0%{transform:translateY(30px) scale(.7);opacity:0}35%{opacity:.75}100%{transform:translateY(-80px) translateX(20px) scale(1.5);opacity:0}}
+.hook-content{position:relative;z-index:4;max-width:430px}
+.hook-content h2{font-size:36px;margin-bottom:10px}
+.hook-content p{color:#b9bfcb;line-height:2}
+.stamp{display:inline-block;margin-top:16px;padding:7px 13px;border:1px solid var(--gold);border-radius:8px;color:var(--gold);font-family:"Baloo 2";direction:ltr}
+footer{padding:45px 0 25px;border-top:1px solid rgba(255,255,255,.08);color:#aeb4c0}
+.footergrid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:30px}.footergrid h3{color:#fff;margin-bottom:12px}
+.social{direction:ltr;font-family:"Baloo 2";font-size:20px;color:var(--gold)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:100;padding:18px}
+.overlay.show{display:flex}
+.modal{width:min(520px,100%);max-height:90vh;overflow:auto;background:#0a0f1b;border:1px solid rgba(242,201,76,.55);border-radius:26px;padding:24px;box-shadow:0 25px 80px #000}
+.modal h3{font-size:25px;margin-bottom:15px}
+.close{float:left;border:0;background:none;color:#fff;font-size:25px}
+.form{display:grid;gap:12px}.form label{font-size:12px;color:#aeb5c1}.form input{width:100%;background:#070a12;border:1px solid #273044;color:#fff;border-radius:12px;padding:12px;outline:none}
+.form input:focus{border-color:var(--gold)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.total{display:flex;justify-content:space-between;padding:16px;border-radius:15px;background:rgba(242,201,76,.08);margin:14px 0;color:#fff}
+.total strong{color:var(--gold)}
+.user-card{display:grid;gap:12px}
+.welcome{padding:15px;border-radius:15px;background:rgba(93,59,191,.15);border:1px solid rgba(93,59,191,.4);line-height:2}
+.notify{margin-top:10px;padding:14px;border-radius:15px;border:1px solid rgba(242,201,76,.3);background:rgba(242,201,76,.05)}
+.hidden{display:none!important}
+.cart-fab{position:fixed;left:18px;bottom:18px;z-index:60;background:var(--gold);color:#111;border:0;border-radius:50px;padding:13px 18px;font-weight:900;box-shadow:0 12px 35px #000}
+.badge{background:#111;color:var(--gold);padding:2px 7px;border-radius:99px;margin-right:5px}
+@media(max-width:800px){
+ .navlinks{display:none}.grid{grid-template-columns:1fr 1fr}.about,.footergrid{grid-template-columns:1fr}.info{grid-template-columns:1fr}
+ .hero{min-height:560px}.hookah{min-height:470px}.hookah-art{right:13%;bottom:90px}.smoke{right:30%}
+}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.nav{height:64px}.hero-content{padding:55px 0}h1{font-size:72px}.hero h2{font-size:23px}.row{grid-template-columns:1fr}.section{padding:52px 0}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="container nav">
+  <a class="logo" href="#">S<span>N</span></a>
+  <nav class="navlinks">
+   <a href="#menu">منو</a><a href="#hookah">هوکا</a><a href="#about">درباره SN</a><a href="#contact">تماس</a>
+  </nav>
+  <div class="nav-actions">
+   <button class="iconbtn" onclick="openAccount()">👤 حساب</button>
+   <button class="goldbtn" onclick="openCart()">سفارش <span id="cartCount" class="badge">0</span></button>
+  </div>
+ </div>
+</header>
+
+<section class="hero">
+ <div class="container hero-content">
+  <div class="eyebrow">SN CAFE · MEHRSHahr</div>
+  <h1>S<span>N</span></h1>
+  <h2>جایی فراتر از یک فنجان</h2>
+  <p>طعم، موسیقی و حال‌وهوایی متفاوت در قلب مهرشهر. منوی SN را ببین، میزت را انتخاب کن و سفارشت را با چند لمس ثبت کن.</p>
+  <div class="hero-buttons">
+   <a class="goldbtn" href="#menu">مشاهده منو</a>
+   <button class="ghostbtn" onclick="openAccount()">ورود به حساب</button>
+  </div>
+ </div>
+</section>
+
+<main class="container">
+<section id="menu" class="section">
+ <div class="section-head"><div><h2>منوی SN</h2><p>انتخاب کن، سفارش بده و از لحظه‌ات لذت ببر.</p></div></div>
+ <div class="tabs">
+  <button class="tab active" data-cat="all">همه</button>
+  <button class="tab" data-cat="hot">بار گرم</button>
+  <button class="tab" data-cat="cold">بار سرد</button>
+  <button class="tab" data-cat="food">غذا</button>
+  <button class="tab" data-cat="dessert">دسر</button>
+ </div>
+ <div id="menuGrid" class="grid"></div>
+</section>
+
+<section id="hookah" class="section">
+ <div class="hookah">
+  <div class="table"></div>
+  <div id="hookahArt" class="hookah-art" onclick="openHookah()">💨🫖</div>
+  <div id="smoke" class="smoke"><i></i><i></i><i></i></div>
+  <div class="hook-content">
+   <div class="eyebrow">SPECIAL EXPERIENCE</div>
+   <h2>HOOKAH MENU</h2>
+   <p>روی قلیان بزن تا دود فعال شود و منوی هوکا باز شود.</p>
+   <span class="stamp">KRONOS · SN</span>
+   <br><button class="goldbtn" style="margin-top:18px" onclick="openHookah()">باز کردن منوی هوکا</button>
+  </div>
+ </div>
+</section>
+
+<section id="about" class="section">
+ <div class="about">
+  <div class="aboutbox"><h3>SN Cafe</h3><p>یک کافه با هویت دارک، مدرن و متفاوت؛ جایی برای قهوه، دورهمی و تجربه‌ای که فقط به یک فنجان ختم نمی‌شود.</p></div>
+  <div class="aboutbox"><h3>ساعت کاری</h3><p dir="ltr">09:00 AM — 12:00 AM</p><div class="info"><div><small>آدرس</small>مهرشهر، بلوار ارم، اول شرقی</div><div><small>Instagram</small><span class="social">@SN.cofee</span></div><div><small>رزرو</small>از طریق سایت</div></div></div>
+ </div>
+</section>
+</main>
+
+<footer id="contact">
+ <div class="container footergrid">
+  <div><h3 class="logo">S<span>N</span></h3><p>جایی فراتر از یک فنجان.</p></div>
+  <div><h3>ارتباط</h3><p>مهرشهر، بلوار ارم، اول شرقی</p><p>هر روز 09:00 تا 00:00</p></div>
+  <div><h3>شبکه اجتماعی</h3><p class="social">@SN.cofee</p></div>
+ </div>
+ <div class="container" style="margin-top:30px;font-size:12px">© 2026 SN Cafe — Demo Portfolio</div>
+</footer>
+
+<button class="cart-fab" onclick="openCart()">🛒 سبد سفارش <span id="cartCount2">0</span></button>
+
+<div id="modal" class="overlay" onclick="if(event.target===this)closeModal()"><div class="modal"><button class="close" onclick="closeModal()">×</button><div id="modalContent"></div></div></div>
+
+<script>
+const menu=[
+ {id:1,cat:'hot',emoji:'☕',en:'Espresso',fa:'اسپرسو',price:85000,desc:'قهوه‌ای کوتاه و قدرتمند'},
+ {id:2,cat:'hot',emoji:'☕',en:'Cappuccino',fa:'کاپوچینو',price:120000,desc:'اسپرسو، شیر بخار داده شده و فوم'},
+ {id:3,cat:'hot',emoji:'🍫',en:'Hot Chocolate',fa:'هات چاکلت',price:135000,desc:'شکلات گرم و خامه‌ای'},
+ {id:4,cat:'hot',emoji:'🥤',en:'Caramel Macchiato',fa:'کارامل ماکیاتو',price:145000,desc:'لاته با طعم کارامل'},
+ {id:5,cat:'cold',emoji:'🧊',en:'Iced Americano',fa:'آیس آمریکانو',price:110000,desc:'اسپرسو، آب و یخ'},
+ {id:6,cat:'cold',emoji:'🫐',en:'Blue Lagoon',fa:'بلو لاگون',price:150000,desc:'نوشیدنی خنک و رنگی'},
+ {id:7,cat:'cold',emoji:'🍓',en:'Berry Shake',fa:'بری شیک',price:165000,desc:'شیک میوه‌های قرمز'},
+ {id:8,cat:'cold',emoji:'🍋',en:'Mojito',fa:'موهیتو',price:140000,desc:'نعناع، لیمو و یخ'},
+ {id:9,cat:'food',emoji:'🍔',en:'Classic Burger',fa:'برگر کلاسیک',price:280000,desc:'برگر گوشت با مخلفات تازه'},
+ {id:10,cat:'food',emoji:'🍝',en:'Alfredo Pasta',fa:'پاستا آلفردو',price:295000,desc:'پاستا با سس خامه‌ای'},
+ {id:11,cat:'food',emoji:'🍕',en:'Chicken Pizza',fa:'پیتزا مرغ',price:320000,desc:'پیتزای مرغ و پنیر'},
+ {id:12,cat:'food',emoji:'🍗',en:'Chicken Burger',fa:'برگر مرغ',price:245000,desc:'مرغ سوخاری و سس مخصوص'},
+ {id:13,cat:'dessert',emoji:'🍰',en:'Chocolate Cake',fa:'کیک شکلاتی',price:150000,desc:'کیک شکلاتی نرم و غنی'},
+ {id:14,cat:'dessert',emoji:'🍮',en:'Cheesecake',fa:'چیزکیک',price:165000,desc:'چیزکیک خامه‌ای'},
+ {id:15,cat:'dessert',emoji:'🍫',en:'Brownie',fa:'براونی',price:135000,desc:'براونی شکلاتی گرم'}
+];
+const hookahs=[
+ {id:101,cat:'hookah',emoji:'💨',en:'Blue Mist',fa:'بلو میست',price:450000,desc:'طعم خنک و میوه‌ای'},
+ {id:102,cat:'hookah',emoji:'🍇',en:'Black Grape',fa:'بلک گریپ',price:480000,desc:'انگور تیره و شیرین'},
+ {id:103,cat:'hookah',emoji:'🍃',en:'Mint Dream',fa:'مینت دریم',price:430000,desc:'نعناع خنک و سبک'},
+ {id:104,cat:'hookah',emoji:'🍓',en:'Red Berry',fa:'رد بری',price:470000,desc:'ترکیب توت‌های قرمز'}
+];
+let cart=JSON.parse(localStorage.getItem('sn_cart')||'[]');
+let selectedCat='all';
+
+function money(n){return n.toLocaleString('fa-IR')+' تومان'}
+function renderMenu(items=menu){
+ const grid=document.getElementById('menuGrid');
+ grid.innerHTML=items.filter(x=>selectedCat==='all'||x.cat===selectedCat).map(x=>`
+ <article class="card">
+  <div class="card-top"><div class="emoji">${x.emoji}</div><div class="price">${money(x.price)}</div></div>
+  <div class="en">${x.en}</div><div class="fa">${x.fa}</div>
+  <p class="desc">${x.desc}</p>
+  <button class="add" onclick="openOrder(${x.id})">افزودن به سفارش</button>
+ </article>`).join('');
+}
+function updateCart(){
+ const n=cart.reduce((s,x)=>s+x.qty,0);
+ document.getElementById('cartCount').textContent=n;
+ document.getElementById('cartCount2').textContent=n;
+ localStorage.setItem('sn_cart',JSON.stringify(cart));
+}
+function findItem(id){return [...menu,...hookahs].find(x=>x.id===id)}
+function addToCart(id,qty=1){
+ const old=cart.find(x=>x.id===id);
+ if(old) old.qty+=qty; else cart.push({id,qty});
+ updateCart();
+}
+function openOrder(id){
+ const x=findItem(id);
+ showModal(`<h3>ثبت سفارش</h3>
+ <div class="form">
+ <label>شماره میز</label><input id="tableNo" placeholder="مثلاً 12" inputmode="numeric">
+ <label>${x.en} · ${x.fa}</label>
+ <div class="row"><input id="qty" type="number" min="1" value="1"><button class="goldbtn" onclick="confirmAdd(${id})">افزودن</button></div>
+ <div class="total"><span>برآورد</span><strong id="liveTotal">${money(x.price)}</strong></div>
+ <div class="notify">💡 می‌توانی بعداً آیتم‌های بیشتری به همین سفارش اضافه کنی.</div>
+ </div>`);
+ document.getElementById('qty').addEventListener('input',()=>{let q=Math.max(1,+document.getElementById('qty').value||1);document.getElementById('liveTotal').textContent=money(x.price*q)})
+}
+function confirmAdd(id){
+ const table=document.getElementById('tableNo').value.trim();
+ const qty=Math.max(1,+document.getElementById('qty').value||1);
+ if(!table){alert('لطفاً شماره میز را وارد کنید.');return}
+ localStorage.setItem('sn_table',table);
+ addToCart(id,qty); closeModal(); openCart();
+}
+function openCart(){
+ let total=0;
+ const rows=cart.map((c,i)=>{let x=findItem(c.id);let t=x.price*c.qty;total+=t;return `<div class="card" style="margin-bottom:10px;padding:15px"><div class="card-top"><div><b>${x.en}</b><br><span style="color:#aaa">${x.fa} × ${c.qty}</span></div><b class="price">${money(t)}</b></div><button class="add" style="margin-top:10px" onclick="removeCart(${i})">حذف</button></div>`}).join('');
+ showModal(`<h3>سبد سفارش</h3>${rows||'<p style="color:#aaa">هنوز سفارشی اضافه نکرده‌ای.</p>'}
+ ${cart.length?`<div class="total"><span>شماره میز</span><strong>${localStorage.getItem('sn_table')||'—'}</strong></div><div class="total"><span>مبلغ برآوردی</span><strong>${money(total)}</strong></div><button class="goldbtn" style="width:100%" onclick="submitOrder()">ارسال سفارش برای کافه</button>`:''}`);
+}
+function removeCart(i){cart.splice(i,1);updateCart();openCart()}
+function submitOrder(){
+ if(!cart.length)return;
+ const order={table:localStorage.getItem('sn_table')||'نامشخص',items:cart.map(c=>({item:findItem(c.id).fa,qty:c.qty})),time:new Date().toISOString()};
+ localStorage.setItem('sn_last_order',JSON.stringify(order));
+ cart=[];updateCart();closeModal();
+ alert('سفارش شما در نسخه دمو ثبت شد. در نسخه واقعی، این سفارش به پنل کافه ارسال می‌شود.');
+}
+function openHookah(){
+ document.getElementById('hookahArt').classList.add('active');
+ document.getElementById('smoke').classList.add('active');
+ setTimeout(()=>showModal(`<h3>HOOKAH MENU</h3><p style="color:#aaa;margin-bottom:18px">Kronos Hookah · انتخاب طعم</p>
+ <div class="grid" style="grid-template-columns:1fr 1fr">${hookahs.map(x=>`<article class="card"><div class="emoji">${x.emoji}</div><div class="en">${x.en}</div><div class="fa">${x.fa}</div><p class="desc">${x.desc}</p><b class="price">${money(x.price)}</b><button class="add" style="margin-top:12px" onclick="openOrder(${x.id})">انتخاب</button></article>`).join('')}</div>`),250)
+}
+function openAccount(){
+ const user=JSON.parse(localStorage.getItem('sn_user')||'null');
+ if(user){
+  showModal(`<h3>حساب SN</h3><div class="user-card"><div class="welcome">به مجموعه SN خوش آمدید ⭐<br><small>${user.phone}</small></div>
+  <div class="notify">🔔 با فعال کردن اعلان‌ها، از تخفیف‌ها و برنامه‌های ویژه SN مطلع شوید.</div>
+  <button class="goldbtn" onclick="enableNotifications()">فعال‌سازی اعلان‌ها</button>
+  <button class="ghostbtn" onclick="logout()">LOGOUT</button></div>`);
+ }else{
+  showModal(`<h3> SING IN / ساخت حساب</h3><div class="form">
+  <label>شماره تماس</label><input id="phone" type="tel" placeholder="09xxxxxxxxx">
+  <label>Gmail</label><input id="email" type="email" placeholder="example@gmail.com">
+  <label>تعیین رمز ورود</label><input id="pass" type="password" placeholder="••••••••">
+  <label>تکرار رمز ورود</label><input id="pass2" type="password" placeholder="••••••••">
+  <button class="goldbtn" onclick="signup()">ساخت حساب</button>
+  <p style="font-size:11px;color:#888">این نسخه دمو است و اطلاعات حساب فقط روی همین دستگاه ذخیره می‌شود.</p></div>`);
+ }
+}
+function signup(){
+ const phone=document.getElementById('phone').value.trim(),email=document.getElementById('email').value.trim(),p=document.getElementById('pass').value,p2=document.getElementById('pass2').value;
+ if(!phone||!email||!p){alert('همه فیلدها را کامل کنید.');return}
+ if(p!==p2){alert('تکرار رمز ورود صحیح نیست.');return}
+ localStorage.setItem('sn_user',JSON.stringify({phone,email}));
+ openAccount();
+}
+function logout(){localStorage.removeItem('sn_user');openAccount()}
+async function enableNotifications(){
+ if(!('Notification' in window)){alert('مرورگر این قابلیت را پشتیبانی نمی‌کند.');return}
+ const p=await Notification.requestPermission();
+ if(p==='granted') new Notification('SN Cafe ⭐',{body:'اعلان‌های SN فعال شد.'});
+ else alert('اجازه اعلان داده نشد.');
+}
+function showModal(html){document.getElementById('modalContent').innerHTML=html;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');selectedCat=b.dataset.cat;renderMenu()}));
+renderMenu();updateCart();
+</script>
+</body>
+</html>
