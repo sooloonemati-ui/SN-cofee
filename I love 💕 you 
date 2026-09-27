@@ -1,1 +1,509 @@
-g
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>I Love You</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    background:#000;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+/* قسمت مشکی بالا */
+.top{
+    height:50%;
+    min-height:220px;
+    background:#000;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.top-title{
+    color:white;
+    font-size:clamp(34px,7vw,82px);
+    font-weight:bold;
+    font-style:italic;
+    white-space:nowrap;
+}
+
+/* قسمت زرد */
+.stage{
+    position:relative;
+    height:50%;
+    background:#ffc65f;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* متن اصلی */
+.love-box{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    height:120px;
+    min-width:320px;
+
+    color:#642f88;
+
+    font-size:clamp(34px,7vw,72px);
+    font-weight:800;
+}
+
+/* خط های سفید */
+.bar{
+    width:4px;
+    height:105px;
+
+    background:white;
+
+    border-radius:4px;
+}
+
+/* حروف */
+.letters{
+    display:flex;
+    align-items:center;
+    height:100%;
+}
+
+.char{
+    display:inline-block;
+    position:relative;
+
+    transform-origin:center;
+
+    will-change:transform,opacity;
+}
+
+/* قلب */
+.heart{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    width:1.05em;
+    height:1.05em;
+
+    margin:0 .05em;
+
+    color:#ef3e3e;
+
+    transform-origin:center;
+
+    will-change:transform;
+}
+
+.heart-shape{
+    display:block;
+    line-height:1;
+    font-size:1.05em;
+}
+
+/* افکت دایره */
+.ring{
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    border:1px solid rgba(123,63,145,.22);
+
+    border-radius:50%;
+
+    opacity:0;
+
+    transform:scale(.2);
+
+    pointer-events:none;
+}
+
+/* ذرات */
+.spark{
+    position:absolute;
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#7b3f91;
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+.hint{
+    position:absolute;
+
+    bottom:14px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    color:rgba(70,30,70,.35);
+
+    font-size:12px;
+
+    letter-spacing:.5px;
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- قسمت بالایی -->
+<section class="top">
+
+    <div class="top-title">
+        I Love You😍
+    </div>
+
+</section>
+
+
+<!-- قسمت پایینی -->
+<section class="stage">
+
+    <div class="love-box" id="loveBox">
+
+        <div class="bar"></div>
+
+        <div class="letters">
+
+            <span class="char">
+                I
+            </span>
+
+            <span class="heart" id="heart">
+
+                <span class="heart-shape">
+                    ♥
+                </span>
+
+            </span>
+
+            <span class="char">
+                U
+            </span>
+
+        </div>
+
+        <div class="bar"></div>
+
+
+        <!-- افکت دایره -->
+        <div class="ring" id="ring"></div>
+
+
+        <!-- ذرات -->
+        <span class="spark" id="s1"></span>
+        <span class="spark" id="s2"></span>
+        <span class="spark" id="s3"></span>
+        <span class="spark" id="s4"></span>
+
+    </div>
+
+
+    <div class="hint">
+        I LOVE YOU
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   توابع انیمیشن
+========================= */
+
+const $ = id => document.getElementById(id);
+
+const wait = ms =>
+    new Promise(resolve => setTimeout(resolve, ms));
+
+
+/* Ease */
+function easeInOut(t){
+
+    return t < 0.5
+
+        ? 2 * t * t
+
+        : 1 - Math.pow(-2 * t + 2, 2) / 2;
+}
+
+
+function easeOut(t){
+
+    return 1 - Math.pow(1 - t, 3);
+
+}
+
+
+function animateScale(
+    element,
+    from,
+    to,
+    duration,
+    easing = easeInOut
+){
+
+    return new Promise(resolve => {
+
+        const start = performance.now();
+
+        function frame(now){
+
+            const progress =
+                Math.min(
+                    1,
+                    (now - start) / duration
+                );
+
+            const value =
+                from +
+                (to - from) *
+                easing(progress);
+
+            element.style.transform =
+                `scale(${value})`;
+
+            if(progress < 1){
+
+                requestAnimationFrame(frame);
+
+            }else{
+
+                resolve();
+
+            }
+
+        }
+
+        requestAnimationFrame(frame);
+
+    });
+
+}
+
+
+/* تغییر opacity */
+function animateOpacity(
+    element,
+    from,
+    to,
+    duration
+){
+
+    return new Promise(resolve => {
+
+        const start = performance.now();
+
+        function frame(now){
+
+            const progress =
+                Math.min(
+                    1,
+                    (now - start) / duration
+                );
+
+            element.style.opacity =
+                from +
+                (to - from) *
+                progress;
+
+            if(progress < 1){
+
+                requestAnimationFrame(frame);
+
+            }else{
+
+                resolve();
+
+            }
+
+        }
+
+        requestAnimationFrame(frame);
+
+    });
+
+}
+
+
+/* =========================
+   افکت انفجار قلب
+========================= */
+
+async function burst(){
+
+    const ring = $("ring");
+
+
+    /* دایره */
+
+    ring.style.opacity = "1";
+
+    await animateScale(
+        ring,
+        0.2,
+        1,
+        420,
+        easeOut
+    );
+
+
+    await animateOpacity(
+        ring,
+        1,
+        0,
+        260
+    );
+
+
+    /* ذرات */
+
+    const sparks = [
+
+        [$("s1"), -58, -42],
+
+        [$("s2"), 52, -48],
+
+        [$("s3"), -62, 42],
+
+        [$("s4"), 60, 45]
+
+    ];
+
+
+    sparks.forEach(
+        ([element,x,y]) => {
+
+            element.style.left =
+                `calc(50% + ${x}px)`;
+
+            element.style.top =
+                `calc(50% + ${y}px)`;
+
+            element.style.opacity = "1";
+
+            element.style.transform =
+                "scale(1)";
+
+        }
+    );
+
+
+    await wait(80);
+
+
+    await Promise.all(
+
+        sparks.map(
+            ([element]) =>
+                animateOpacity(
+                    element,
+                    1,
+                    0,
+                    350
+                )
+        )
+
+    );
+
+}
+
+
+/* =========================
+   انیمیشن اصلی
+========================= */
+
+async function play(){
+
+    const heart = $("heart");
+
+
+    /* ورود قلب */
+
+    await wait(250);
+
+
+    await animateScale(
+        heart,
+        0.25,
+        1,
+        420,
+        easeOut
+    );
+
+
+    /* افکت اطراف قلب */
+
+    await burst();
+
+
+    /* تپش قلب */
+
+    await animateScale(
+        heart,
+        1,
+        1.28,
+        150,
+        easeInOut
+    );
+
+
+    await animateScale(
+        heart,
+        1.28,
+        1,
+        170,
+        easeOut
+    );
+
+
+    /* مکث */
+
+    await wait(850);
+
+
+    /* تکرار */
+
+    requestAnimationFrame(play);
+
+}
+
+
+/* شروع */
+
+play();
+
+</script>
+
+</body>
+</html>
